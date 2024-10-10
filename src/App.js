@@ -7,7 +7,7 @@ function App() {
   const [colors, setColors] = useState([]);
 
   const api = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: process.env.REACT_APP_API_URL
   });
 
   useEffect(() => {
