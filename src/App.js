@@ -10,6 +10,10 @@ function App() {
     baseURL: process.env.REACT_APP_API_URL
   });
 
+  const setColor = async (color) => {
+    await api.put('/colors', { color: color });
+  };
+
   useEffect(() => {
     const fetchColors = async () => {
       const { data: colors } = await api.get('/colors');
@@ -24,7 +28,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {colors.map(color => <ColorSwatch key={color} color={color} />)}
+        {colors.map(color => <ColorSwatch key={color} color={color} setColor={setColor} />)}
       </header>
     </div>
   );

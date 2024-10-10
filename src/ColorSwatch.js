@@ -1,24 +1,27 @@
 import Color from "color";
 
-const ColorSwatch = ({ color }) => {
+const ColorSwatch = ({ color, setColor }) => {
 
+  let colorHex = color;
   if (color === 'black') {
-    color = '#333';
+    colorHex = '#333';
   }
 
-  const darkerColor = Color(color).darken(0.5).hex()
+  const darkerColor = Color(color).darken(0.5).hex();
 
   return (
-    <div style={{
+    <button style={{
       height: 100,
       width: 100,
       borderWidth: 6,
       borderColor: 'white',
       borderStyle: 'solid',
       borderRadius: '100%',
-      background: `linear-gradient(315deg, ${darkerColor} 50%, ${color} 50%)`
-    }}>
-    </div>
+      background: `linear-gradient(315deg, ${darkerColor} 50%, ${colorHex} 50%)`,
+    }}
+    onClick={async () => await setColor(color)}
+    >
+    </button>
   );
 }
 
