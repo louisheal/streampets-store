@@ -1,22 +1,30 @@
-import logo from './logo.svg';
+import axios from 'axios';
 import './App.css';
+import ColorSwatch from './ColorSwatch';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [colors, setColors] = useState([]);
+
+  const api = axios.create({
+    baseURL: 'http://localhost:5000'
+  });
+
+  useEffect(() => {
+    const fetchColors = async () => {
+      const { data: colors } = await api.get('/colors');
+      console.log(colors);
+      setColors(colors);
+    };
+
+    fetchColors();
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {colors.map(color => <ColorSwatch key={color} color={color} />)}
       </header>
     </div>
   );
